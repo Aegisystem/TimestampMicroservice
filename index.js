@@ -20,23 +20,24 @@ app.get("/", function (req, res) {
 
 app.get("/api/:date", (req, res) => {
   const date = req.params.date
-    const input = new Date(parseInt(date))
-    if (input.toString() == "Invalid Date") {
+  if(isFinite(date)) {
+    let resp = new Date(parseInt(date))
+    res.json({
+      unix: resp.valueOf(),
+      utc: resp.toUTCString()
+    })
+  } else {
+    let resp = new Date(date)
+    if(resp.toString() == "Invalid Date") {
       res.json({
-        error: "Invalid date"
-      })
-      return
-    }
-    if(!Number.isInteger(req.params.date)) {
-      res.json({
-        "unix": input.valueOf(),
-        "utc": input.toUTCString()
+        error: resp.toString()
       })
     } else {
       res.json({
-        "utc": input.valueOf()
+        unix: resp.valueOf()
       })
     }
+  }
 })
 
 // your first API endpoint... 

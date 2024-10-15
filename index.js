@@ -42,7 +42,8 @@ app.get("/api/:date?", (req, res) => {
       })
     } else {
       res.json({
-        unix: resp.valueOf()
+        unix: resp.valueOf(),
+        utc: resp.toUTCString()
       })
     }
   }

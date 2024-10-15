@@ -20,7 +20,7 @@ app.get("/", function (req, res) {
 
 app.get("/api/:date", (req, res) => {
   const date = req.params.date
-    const input = new Date(date)
+    const input = new Date(parseInt(date))
     if (input.toString() == "Invalid Date") {
       res.json({
         error: "Invalid date"
@@ -30,7 +30,7 @@ app.get("/api/:date", (req, res) => {
     if(!Number.isInteger(req.params.date)) {
       res.json({
         "unix": input.valueOf(),
-        "utc": input.toUTCString() + "a"
+        "utc": input.toUTCString()
       })
     } else {
       res.json({
